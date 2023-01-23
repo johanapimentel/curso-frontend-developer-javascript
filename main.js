@@ -4,6 +4,7 @@ const menuPpalMobile = document.querySelector('.menu');
 const mobileMenu = document.querySelector('.mobile-menu');
 const iconShoppingCar = document.querySelector('.navbar-shopping-cart');
 const myShoppingMenu = document.querySelector('.product-detail');
+const myProductDetailSpecific = document.querySelector('.product-detail-specific');
 
 menuEmail.addEventListener("click", toggleDesktopMenu);
 
@@ -18,15 +19,14 @@ function toggleMobileMenu () {
     const isMyShoppingMenuClosed = myShoppingMenu.classList.contains('inactive');
     
     if ((isMyShoppingMenuClosed) && (isMobileMenuClosed)) {
+        closeProductInfo();
         mobileMenu.classList.remove('inactive');
-
-    } else if ((!isMyShoppingMenuClosed) && (isMobileMenuClosed)) {
+        
+    } else if ((!isMyShoppingMenuClosed) && (isMobileMenuClosed)){
         myShoppingMenu.classList.add('inactive');
+        closeProductInfo();
         mobileMenu.classList.remove('inactive');
-
-    } else {
-        mobileMenu.classList.add('inactive');
-    }
+    } else mobileMenu.classList.add('inactive');
 };
 
 iconShoppingCar.addEventListener("click", toggleShoppingCarMenu);
@@ -34,12 +34,15 @@ iconShoppingCar.addEventListener("click", toggleShoppingCarMenu);
 function toggleShoppingCarMenu () {
     const isMobileMenuClosed = mobileMenu.classList.contains('inactive');
     const isMyShoppingMenuClosed = myShoppingMenu.classList.contains('inactive');
+    //const isProductDetailClosed = myProductDetailSpecific.classList.contains('inactive');
     
     if ((isMyShoppingMenuClosed) && (isMobileMenuClosed)) {
+        closeProductInfo();
         myShoppingMenu.classList.remove('inactive');
 
     } else if ((isMyShoppingMenuClosed) && (!isMobileMenuClosed)) {
         mobileMenu.classList.add('inactive');
+        closeProductInfo();
         myShoppingMenu.classList.remove('inactive');
 
     } else {
@@ -110,7 +113,15 @@ const renderProduct = (arr) => {
 
 const openProductInfo = () => {
     const productDetailSpecific = document.querySelector('.product-detail-specific');
-    productDetailSpecific.classList.remove('inactive');
+    const isMobileMenuClosed = mobileMenu.classList.contains('inactive');
+    const isMyShoppingMenuClosed = myShoppingMenu.classList.contains('inactive');
+    if (isMyShoppingMenuClosed && isMobileMenuClosed) {
+        productDetailSpecific.classList.remove('inactive');
+    } else {
+        myShoppingMenu.classList.add("inactive");
+        mobileMenu.classList.add('inactive');
+        productDetailSpecific.classList.remove('inactive');
+    }
 }
 
 renderProduct(productList);
