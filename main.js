@@ -115,6 +115,7 @@ const openProductInfo = () => {
     const productDetailSpecific = document.querySelector('.product-detail-specific');
     const isMobileMenuClosed = mobileMenu.classList.contains('inactive');
     const isMyShoppingMenuClosed = myShoppingMenu.classList.contains('inactive');
+
     if (isMyShoppingMenuClosed && isMobileMenuClosed) {
         productDetailSpecific.classList.remove('inactive');
     } else {
